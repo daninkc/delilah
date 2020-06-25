@@ -17,7 +17,7 @@ const checkToken = (req, res, next) => {
 
 const checkAdminStatus = (req, res, next) => {
     console.log(req.user.adminStatus);
-    if (req.user.adminStatus !== 22091920) {
+    if (req.user.adminStatus !== 22081920) {
         return res.status(403).json({ error: 'Unauthorized access' })
     }
     next();
