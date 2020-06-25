@@ -17,12 +17,12 @@ async (req, res) => {
 });
 
 router.post('/register', [
-    check('username', 'Debe ingresar su nombre de usuario').not().isEmpty(),
-    check('password', 'Debe ingresar una contraseña').not().isEmpty(),
-    check('email', 'Debe ingresar un correo válido').isEmail(),
-    check('name_lastName', 'Debe ingresar su nombre y apellido').not().isEmpty(),
-    check('phone_number', 'Debe ingresar un número de teléfono').not().isEmpty(),
-    check('address', 'Debe ingresar una dirección').not().isEmpty()
+    check('username', 'Oops! We need an username').not().isEmpty(),
+    check('password', 'Oops! We need you to enter a password').not().isEmpty(),
+    check('email', 'Oops! This appears to be empty, or maybe your email is not valid').isEmail(),
+    check('name_lastName', 'Oops! We need your name and last name').not().isEmpty(),
+    check('phone_number', 'Oops! We need a phone number, just in case (we promise not to use it unless it is an emergency)').not().isEmpty(),
+    check('address', 'Oops! We need an address where we can take your order!').not().isEmpty()
 ], async (req, res) => {
 
     const errors = validationResult(req);
@@ -43,10 +43,10 @@ router.post('/login', async (req, res) => {
         if(iguales) {
             res.json({ success: createToken(user) });
         } else {
-            res.json({ error: 'Lo sentimos, los datos son incorrectos'})    
+            res.json({ error: 'Sorry, this data appears to be incorrect'})    
         }
     }  else {
-        res.json({ error: 'Lo sentimos, los datos son incorrectos' })
+        res.json({ error: 'Sorry, this data appears to be incorrect' })
     }
 });
 
@@ -54,14 +54,14 @@ router.put("/:userID", middlewares.checkToken, async (req, res) => {
     await User.update(req.body, {
       where: { id: req.params.userID },
     });
-    res.status(200).json({ success: "Modificado correctamente." });
+    res.status(200).json({ success: "The user was modified correctly." });
   });
 
   router.delete("/:userID", middlewares.checkToken, async (req, res) => {
     await User.destroy({
       where: { id: req.params.userID },
     });
-    res.status(200).json({ success: "Usuario borrado correctamente." });
+    res.status(200).json({ success: "The user was deleted correctly." });
   });
 
 
