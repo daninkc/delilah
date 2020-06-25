@@ -66,7 +66,7 @@ http://localhost:3000/
 
 ## Checking if it's running correctly
 
-Write http://localhost:3000/api in a browser.
+Write http://localhost:3000/ in a browser.
 
 You should get a message: "Oh, you're here! What a pleasant surprise"
 
