@@ -37,9 +37,11 @@ middlewares.checkToken,
 middlewares.checkAdminStatus,
  async (req, res) => {
     await Order.update(req.body, {
-        where: { id: req.params.orderID }
+        where: {
+            id: req.params.orderID
+        }
     });
-    res.status(200).json({ success: 'Order was modified' });
+    res.status(200).json({ success: 'The order was modified correctly!'});
 });
 
 router.delete('/:orderID',
