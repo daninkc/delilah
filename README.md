@@ -26,14 +26,15 @@ Use *npm install* and install all the dependencies needed.
 ````json
 "dependencies": {
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "express-validator": "^6.5.0",
+    "express-validator": "^6.6.0",
+    "jsonwebtoken": "^8.5.1",
     "jwt-simple": "^0.5.6",
-    "moment": "^2.26.0",
+    "moment": "^2.27.0",
     "mysql2": "^2.1.0",
-    "sequelize": "^5.21.12"
-}
+    "node": "^14.4.0",
+    "sequelize": "^5.21.13"
+  }
 ````
 
 ## Configure the database
