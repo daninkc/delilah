@@ -75,6 +75,8 @@ You should get a message: "Oh, you're here! What a pleasant surprise"
 
 Use Postman or similar apps to try out the different GET, POST, PUT and DELETE requests.
 
+You can find my Postman requests here, to make your job easier! https://www.getpostman.com/collections/e97fa9d611c1d04628da
+
 ## Middlewares
 
 There are two main middlewares that set permissions for different types of users.
@@ -96,6 +98,8 @@ https://app.swaggerhub.com/apis/daninkc/delilahresto/1.0.0
 Or... you can just use this.
 
 Important note: middlewares check user and admin with a token. To have access to resources with admin privileges, you need to be logged in as a registered admin first.
+Also, always remember to use JSON as the type when making raw data queries :)
+
 
 ## For managing users
 
@@ -105,13 +109,33 @@ http://localhost:3000/users/register
 
 *For the body of the request, you will need: username (string), password (string), name_Lastname (string), phone_number (string), email (string)*
 
-(adminStatus is an optional parameter)
+Example:
+
+    {
+        "username": "my_username",
+        "password": "mypassword",
+        "name_lastName": "My Name and Last Name",
+        "email": "myemail@email.com",
+        "phone_number": "1234567890",
+        "address": "My address",
+        "adminStatus": 22081920
+    }
+
+(adminStatus is an optional parameter: the value given is for an admin user)
 
 POST - Login of user
 
 http://localhost:3000/users/login
 
 *For the body of the request, you will need: username (string), password (string), email (string)*
+
+Example:
+
+    {
+        "username": "my_username",
+        "password": "mypassword",
+        "email": "myemail@email.com"
+    }
 
 GET - See all users
 
@@ -131,11 +155,24 @@ http://localhost:3000/users/:userID
 
 *You need admin privileges via checkAdminStatus middleware*
 
+Example data:
+
+    {
+        "username": "general_username",
+        "password": "generalpassword",
+        "name_lastName": "Name and Last Name of general user",
+        "email": "generalusersecondemail@email.com",
+        "phone_number": "0123456789",
+        "address": "General user address"
+    }
+
 DELETE - Remove a user
 
 http://localhost:3000/users/:userID
 
 *You need admin privileges via checkAdminStatus middleware*
+
+
 
 ## For managing products
 
@@ -158,17 +195,33 @@ http://localhost:3000/products/
 *You need admin privileges via checkAdminStatus middleware*
 *For the body of the request, you will need: name (string), price (double)*
 
+Example:
+
+{
+    "price": 400,
+    "name": "hamburger"
+}
+
+
 PUT - Edit a product
 
 http://localhost:3000/products/:productID
 
 *You need admin privileges via checkAdminStatus middleware*
 
+{
+    "price": 150,
+    "name": "pizza"
+}
+
+
 DELETE - Remove a product
 
 http://localhost:3000/products/:productID
 
 *You need admin privileges via checkAdminStatus middleware*
+
+
 
 ## For managing orders
 
@@ -191,14 +244,32 @@ http://localhost:3000/orders/
 *You need user privileges via checkToken middleware*
 *For the body of the request, you will need: total_price (double), payment_method (string)*
 
+Example:
+
+{
+    "status": "Nuevo",
+    "total_price": "10000",
+    "payment_method": "cash"
+}
+
 PUT - Edit an order
 
 http://localhost:3000/orders/:orderID
 
 *You need admin privileges via checkAdminStatus middleware*
 
+Example:
+
+{
+    "status": "Cancelado",
+    "total_price": "5000",
+    "payment_method": "debit"
+}
+
 DELETE - Remove an order
 
 http://localhost:3000/orders/:orderID
 
 *You need admin privileges via checkAdminStatus middleware*
+
+Thank you and have fun! :)
