@@ -19,7 +19,7 @@ async (req, res) => {
 router.post('/register', [
     check('username', 'Oops! We need an username').not().isEmpty(),
     check('password', 'Oops! We need you to enter a password').not().isEmpty(),
-    check('email', 'Oops! This appears to be empty, or maybe your email is not valid').isEmail(),
+    check('email', 'Oops! Maybe your email is not valid').isEmail(),
     check('name_lastName', 'Oops! We need your name and last name').not().isEmpty(),
     check('phone_number', 'Oops! We need a phone number, just in case (we promise not to use it unless it is an emergency)').not().isEmpty(),
     check('address', 'Oops! We need an address where we can take your order!').not().isEmpty()
