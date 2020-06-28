@@ -50,7 +50,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.put("/:userID", middlewares.checkToken, async (req, res) => {
+router.put("/:userID", middlewares.checkToken, middlewares.checkAdminStatus, async (req, res) => {
     await User.update(req.body, {
       where: { id: req.params.userID },
     });

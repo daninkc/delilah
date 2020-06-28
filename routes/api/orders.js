@@ -1,12 +1,9 @@
 const router = require('express').Router();
-const { Order} = require('../../db_queries');
-const { productOrderModel } = require('../../db_queries')
+const { Order, ProductOrder, User } = require('../../db_queries');
 const middlewares = require('../middlewares');
 
 router.get('/', async (req, res) => {
     const orders = await Order.findAll({
-    include: productOrderModel,
-    as: 'product_order'
 }    ).then(orders => {
         if (orders.length === 0) {
             res.status(404).json('No orders in the database')
@@ -15,9 +12,26 @@ router.get('/', async (req, res) => {
     })
 })
 
-router.post('/', async (req, res) => {
-    const order = await Order.create(req.body);
-    res.status(200).json(order);
+router.post('/',
+middlewares.checkToken,
+async (req, res) => {
+    console.log(payload);
+    const order_items = req.body.order_items;
+    var order = await Order.create({ 
+        cod_user: payload.id,
+        description: req.body.description,
+        total_price: req.body.total_price,
+    }).then((data)=>{
+        order_items.forEach((item) =>{
+                var item_order = ProductOrder.create({
+                    cod_order : data.cod_order,
+                    cod_product: item.cod_product,
+                    quantity: item.quantity,
+                    price: item.price
+                })
+            })    
+    res.status(200).json(data);
+});
 });
 
 

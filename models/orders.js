@@ -11,6 +11,7 @@ module.exports = (sequelize, type) => {
             values: ['Nuevo', 'En preparación', 'Enviado', 'Entregado', 'Cancelado'],
             defaultValue: 'Nuevo'
         },
+        description: type.STRING,
         total_price: type.INTEGER,
         payment_method: type.STRING,
     });

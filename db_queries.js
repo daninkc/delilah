@@ -19,25 +19,23 @@ const User = userModel(sequelize, Sequelize);
 const Order = orderModel(sequelize, Sequelize);
 const ProductOrder = productOrderModel(sequelize, Sequelize);
 
-Product.belongsToMany(Order, {
-    through: ProductOrder,
-    foreignKey: 'productID',
-    otherKey: 'orderID'
-});
-
-Order.belongsToMany(Product, {
-    through: ProductOrder,
-    foreignKey: 'orderID',
-    otherKey: 'productID'
-});
-
-User.hasMany(Order, {
-    foreignKey: 'user_has_order'
-});
-
+// Relación Order => User
 Order.belongsTo(User, {
-    foreignKey: 'order_belongsto_user'
-});
+    foreignKey: 'cod_user'    
+  });
+  User.hasMany(Order, {
+    foreignKey: 'cod_user'
+  });
+  
+  // Relación Order => Order_item <= Product
+  Product.belongsToMany(Order, {
+    through: ProductOrder, 
+    foreignKey: 'cod_product'
+  });
+  Order.belongsToMany(Product, {
+    through: ProductOrder, 
+    foreignKey: 'cod_order'
+  });
 
 sequelize.sync({ force: false})
 .then(() => {
