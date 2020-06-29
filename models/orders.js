@@ -1,7 +1,7 @@
 module.exports = (sequelize, type) => {
     return sequelize.define('order',
     {
-        id:{
+        order_id:{
             type: type.INTEGER,
             primaryKey: true,
             autoIncrement: true
