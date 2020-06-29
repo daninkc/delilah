@@ -21,13 +21,13 @@ const ProductOrder = productOrderModel(sequelize, Sequelize);
 
 Order.belongsTo(User, {
     foreignKey: {
-      name: 'cod_user',
+      name: 'userfk',
       onUpdate: 'CASCADE'    
       }
   });
   User.hasMany(Order, {
     foreignKey: {
-      name: 'cod_user',
+      name: 'userfk',
       onUpdate: 'CASCADE'
     }
   });
@@ -35,14 +35,14 @@ Order.belongsTo(User, {
   Product.belongsToMany(Order, {
     through: ProductOrder, 
     foreignKey: {
-      name: 'cod_product',
+      name: 'productfk',
       onUpdate: 'CASCADE'
     }
   });
   Order.belongsToMany(Product, {
     through: ProductOrder, 
     foreignKey: {
-      name: 'cod_order',
+      name: 'orderfk',
       onUpdate: 'CASCADE'
     } 
   });

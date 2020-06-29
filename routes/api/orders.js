@@ -23,21 +23,27 @@ router.post('/',
 middlewares.checkToken,
 async (req, res) => {
     const order_items = req.body.order_items;
+    try {
     var order = await Order.create({ 
-        cod_user: payload.userID,
+        userfk: payload.userID,
         description: req.body.description,
         total_price: req.body.total_price,
     }).then((data)=>{
         order_items.forEach((item) =>{
                 var item_order = ProductOrder.create({
-                    cod_order : data.order_id,
-                    cod_product: item.cod_product,
+                    orderfk: data.order_id,
+                    productfk: item.productfk,
                     quantity: item.quantity,
                     price: item.price
                 })
             })    
     res.status(200).json(data);
+    console.log(item.productfk);
 });
+}
+catch {
+    res.status(400).json({ error: 'Something went wrong. Please make sure to have your user registered and products for all IDs' })
+}
 });
 
 
