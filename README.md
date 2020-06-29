@@ -89,12 +89,13 @@ To register an user as administrator, in the body of the POST request, you shoul
 
 ## METHODS
 
-If it's easier, you can see all the methods in a very beautiful and interactive Swagger documentation!
-https://app.swaggerhub.com/apis/daninkc/delilahresto/1.0.0
+You can verify how the methods work in this Postman collection: https://www.getpostman.com/collections/e97fa9d611c1d04628da
 
 Or... you can just use this.
 
 Important note: middlewares check user and admin with a token. To have access to resources with admin privileges, you need to be logged in as a registered admin first.
+
+Other important note: Please remember to use JSON for all "body: raw" requests.
 
 ## For managing users
 
@@ -102,15 +103,33 @@ POST - Register a user
 
 http://localhost:3000/users/register
 
-*For the body of the request, you will need: username (string), password (string), name_Lastname (string), phone_number (string), email (string)*
+Request body:
 
-(adminStatus is an optional parameter)
+````js
+    {
+        "username": "my_username",
+        "password": "mypassword",
+        "name_lastName": "My Name and Last Name",
+        "email": "myemail@email.com",
+        "phone_number": "1234567890",
+        "address": "My address",
+        "adminStatus": 22081920
+    }
+````
+
+(adminStatus is an optional parameter. This number makes for admin privileges)
 
 POST - Login of user
 
 http://localhost:3000/users/login
 
-*For the body of the request, you will need: username (string), password (string), email (string)*
+````js
+    {
+        "username": "my_username",
+        "password": "mypassword",
+        "email": "myemail@email.com"
+    }
+````
 
 GET - See all users
 
@@ -129,6 +148,17 @@ PUT - Edit a user
 http://localhost:3000/users/:userID
 
 *You need admin privileges via checkAdminStatus middleware*
+
+````js
+    {
+        "username": "new_username",
+        "password": "newpassword",
+        "name_lastName": "New Name or Last Name",
+        "email": "newemail@email.com",
+        "phone_number": "01234567",
+        "address": "New address",
+    }
+````
 
 DELETE - Remove a user
 
@@ -155,13 +185,26 @@ POST - Generate a product
 http://localhost:3000/products/
 
 *You need admin privileges via checkAdminStatus middleware*
-*For the body of the request, you will need: name (string), price (double)*
+
+````js
+{
+    "price": 100,
+    "name": "hamburguer"
+}
+````
 
 PUT - Edit a product
 
 http://localhost:3000/products/:productID
 
 *You need admin privileges via checkAdminStatus middleware*
+
+````js
+{
+    "price": 400,
+    "name": "hamburguer"
+}
+````
 
 DELETE - Remove a product
 
@@ -188,13 +231,45 @@ POST - Generate an order
 http://localhost:3000/orders/
 
 *You need user privileges via checkToken middleware*
-*For the body of the request, you will need: total_price (double), payment_method (string)*
+
+````js
+{
+    "description": "Pedido",
+    "total_price": 50.50,
+    "order_items":[{
+        "productfk": 1,
+        "quantity": 2,
+        "price": 425
+    },{
+        "productfk": 2,
+        "quantity": 1,
+        "price": 500
+}]
+}
+````
 
 PUT - Edit an order
 
 http://localhost:3000/orders/:orderID
 
 *You need admin privileges via checkAdminStatus middleware*
+
+````js
+{
+    "description": "Pedido modificado",
+    "total_price": 100.00,
+    "status": "Cancelado",
+    "order_items":[{
+        "productfk": 1,
+        "quantity": 3,
+        "price": 500
+    },{
+        "productfk": 2,
+        "quantity": 2,
+        "price": 200
+}]
+}
+````
 
 DELETE - Remove an order
 

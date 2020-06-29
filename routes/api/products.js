@@ -26,7 +26,7 @@ middlewares.checkToken,
  async (req, res) => {
     const productById = await Product.findAll({
         where: {
-            id: req.params.productID
+            product_id: req.params.productID
         }
     });
     res.status(200).json(productById)
@@ -36,8 +36,8 @@ router.put('/:productID',
 middlewares.checkToken,
 middlewares.checkAdminStatus,
  async (req, res) => {
-    await Product.update(req.body, {
-        where: { id: req.params.productID }
+    var editedProduct = await Product.update(req.body, {
+        where: { product_id: req.params.productID }
     });
     res.status(200).json({ success: 'Product was modified' });
 });
@@ -47,7 +47,7 @@ middlewares.checkToken,
 middlewares.checkAdminStatus,
 async (req, res) => {
     await Product.destroy({
-        where: { id: req.params.productID }
+        where: { product_id: req.params.productID }
     });
     res.status(200).json({ success: 'Product was deleted' });
 });

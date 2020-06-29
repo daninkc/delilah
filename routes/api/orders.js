@@ -52,7 +52,7 @@ middlewares.checkToken,
  async (req, res) => {
     const orderById = await Order.findAll({
         where: {
-            id: req.params.orderID
+            order_id: req.params.orderID
         }
     });
     res.status(200).json(orderById)
@@ -64,7 +64,7 @@ middlewares.checkAdminStatus,
  async (req, res) => {
     await Order.update(req.body, {
         where: {
-            id: req.params.orderID
+            order_id: req.params.orderID
         }
     });
     res.status(200).json({ success: 'The order was modified correctly!'});
@@ -75,7 +75,7 @@ middlewares.checkToken,
 middlewares.checkAdminStatus,
 async (req, res) => {
     await Order.destroy({
-        where: { id: req.params.orderID }
+        where: { order_id: req.params.orderID }
     });
     res.status(200).json({ success: 'Order was deleted' });
 });
